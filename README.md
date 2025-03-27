@@ -108,7 +108,9 @@ The system automatically processes:
 ACLF  model includes:
 
 -Contrast enhancement 
+
 -Adaptive connector filtering 
+
 -Fine grained matching
 
 Citation
