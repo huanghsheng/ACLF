@@ -112,18 +112,27 @@ ACLF  model includes:
 -Fine grained matching
 
 Citation
+
 If you use this code in your research, please cite:
+
 @article{
+
   title={Adaptive connection line filtering for image registration of UAV-based visual and thermal infrared imagery in rice phenotyping},
+  
   author={Yu Tang, Jiajun Xu, Huasheng Huang, Jiajun Zhuang, Zibin Zhou, Peng Zhang},
+  
 }
+
 -License
+
 -MIT License
 
 Contact
+
 For any questions, please reach out through:
 
 Submit an Issue
+
 Email: huanghsheng@gpnu.edu.cn
 
 
