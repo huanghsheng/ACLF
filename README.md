@@ -6,15 +6,17 @@ Based on the dual mode registration system of visible light and thermal infrared
 ## Project Structure
 
 
-├── config.py        # Configuration parameters
+├── cnnmatching.py      
 
-├── dataset.py       # Dataset loading and processing
+├── cp_subpixelFine.m      
 
-├── model.py         # HIFF model definition
+├── plotmatch.py      
 
-├── train.py         # Training script
+├── show_resultimage.m       
 
-└── utils.py         # Utility functions
+├── test3.m     
+
+└── text3.py  
 
 
 ## Requirements
@@ -27,44 +29,52 @@ Based on the dual mode registration system of visible light and thermal infrared
 - pandas
 - scikit-learn
 - CUDA (recommended for training)
+- matlab
 
 ## Data Preparation
 
 The dataset should be organized as follows:
 
+baiyun/       # Original images
 
-data/
+├── 137_W1
 
-├── 606_pro/            # Original images
+├── 137_W2
 
-│   ├── 0.png
+├── 137_W3
 
-│   ├── 1.png
+├── 137_T1
 
-│   └── ...
+└── ...
 
-├── 606_pro_CLAHE_1/    # CLAHE enhanced images
+baiyun_gray_size/       # Gray, uniform size
 
-│   ├── 0.png
+├── 137_W1
 
-│   ├── 1.png
+├── 137_W2
 
-│   └── ...
+├── 137_W3
 
-├── train_3_pro.xlsx    # Training labels file
+├── 137_T1
 
-└── texture_features.csv # Texture features file (auto-generated)
+└── ...
 
 
+baiyun_gray_size_dbd/       #  Gray, uniform size， Contrast enhancement
+
+├── 137_W1
+
+├── 137_W2
+
+├── 137_W3
+
+├── 137_T1
+
+└── ...
 
 ## Key Features
-
-- Multimodal feature fusion (image features + texture features)
-- EfficientNet-B0 based deep learning model
-- CLAHE image enhancement
-- Automatic texture feature extraction (IDM, entropy, contrast)
-- Weighted loss function support
-- Adaptive learning rate adjustment
+-Multimodal image registration (visible image+thermal infrared image) 
+-Algorithm based on adaptive filtering
 
 ## Usage Guide
 
@@ -79,69 +89,33 @@ section.zip
 Set key parameters in `config.py`:
 
 ```python
-BATCH_SIZE = 18
-NUM_EPOCHS = 20
-LEARNING_RATE = 0.001
-STEP_SIZE = 8
-GAMMA = 0.5
-CLASS_WEIGHTS = [2, 4, 6]
-TRAIN_TEST_SPLIT = [0.7, 0.3]
+BATCH_SIZE = 4
+c = 0.33
+d = 0.33
 
 ```
 
 ### 2. Data Processing
 The system automatically processes:
 
-Original and CLAHE enhanced images
-Haralick texture feature extraction
-Feature CSV file generation
+Panorama stitching  
+High precision cell clipping 
+Contrast enhancement, uniform size, etc
 
 
-### 3. Model Training
-Run the training script:
-```python
-python train.py
-```
 
-Training outputs:
+### 3. Model Architecture
+ACLF  model includes:
 
-Loss value per epoch
-Accuracy
-Recall
-F1 score
-
-Model saving:
-
-Best model saved as best_train_model.pth
-Final model saved as final_model.pth
-
-### 4. Moedel Testing
-Run the testing script:
-```python
-python test.py
-```
-
-### 5. Model Architecture
-HIFF  model includes:
-
-EfficientNet-B0 backbone
-Dual-path feature fusion layer
-Multi-layer fully connected classifier
-HIFF Structure:
-```markdown
-EfficientNet-B0 --> FC(1000->64) --→  
-
-                                      Concat --> FC(128->3)  
-                                      
-Texture Features --> FC(3->64)   --→
-
-```
+Contrast enhancement 
+Adaptive connector filtering 
+Fine grained matching
 
 Citation
 If you use this code in your research, please cite:
 @article{
-  title={Hybrid integrated feature fusion of handcrafted and deep features for rice blast resistance identification using UAV imagery},
-  author={Peng Zhang, Zibin Zhou, Huasheng Huang, Yuanzhu Yang, Xiaochun Hu, Jiajun Zhuang, and Yu Tang},
+  title={Adaptive connection line filtering for image registration of UAV-based visual and thermal infrared imagery in rice phenotyping},
+  author={Yu Tang, Jiajun Xu, Huasheng Huang, Jiajun Zhuang, Zibin Zhou, Peng Zhang},
 }
 License
 MIT License
