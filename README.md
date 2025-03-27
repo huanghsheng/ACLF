@@ -1,55 +1,161 @@
+# Hybrid integrated feature fusion of handcrafted and deep features for rice blast resistance identification using UAV imagery
+Pytorch implementation of Hybrid integrated feature fusion of handcrafted and deep features for rice blast resistance identification using UAV imagery.
+Rice Blast Disease Detection System for Rice Seedlings Based on Hybrid Image Feature Fusion, combining EfficientNet and texture features for multimodal classification.
 
-# ACLF
 
-Pytorch implements visible light and thermal infrared image registration of rice phenotype unmanned aerial vehicles.
-This study aims to establish a general framework for the application of registration technology in visible light and thermal infrared images of unmanned aerial vehicles, and proposes an adaptive connection line filtering algorithm for the registration of visible light and thermal infrared images of rice phenotype unmanned aerial vehicles.
+## Project Structure
 
-## Data preparation
-本研究的数据集实在自然无风的条件下采集的。
+
+├── config.py        # Configuration parameters
+
+├── dataset.py       # Dataset loading and processing
+
+├── model.py         # HIFF model definition
+
+├── train.py         # Training script
+
+└── utils.py         # Utility functions
+
 
 ## Requirements
-- Python3.8
-- Pytorch 1.9.1
-- matlab 2015b
-- Cuda 11.1
-- Ubuntu20.04 Linux
-- CPU:Intel Xeon Silver 4210R processor×2
-- 32 GB memory×8
-- hard disk:RTX3090 24 GB graphics card×4
 
-## Code Folder Description
-myAlgorithm 自己的算法：
+- Python 3.8+
+- PyTorch
+- torchvision
+- OpenCV (cv2)
+- mahotas
+- pandas
+- scikit-learn
+- CUDA (recommended for training)
 
-       各个 文件夹 介绍：
-       lib 里面有卷积特征提取模块
-       xiaorong 里面包含一到七文件夹，七个消融实验产生的粗匹配点
-       shougong_baiyun_mat1 和 shougong_zengcheng_json 里面的json文件，分别是白云和增城标注的真实值，包含红外点，可见光点，真实值的单应矩阵，以及损失值
+## Data Preparation
+
+The dataset should be organized as follows:
 
 
-       各个 文件  介绍：
-       matrix1.mat 和 matirx2.mat 文件 初步匹配后的匹配点矩阵文件
-       text3.py 输入是手工标注的真实点(json文件)，还有精细匹配后的两对点(两个.mat矩阵文件)，输出是RMSE（输出1）。红外精细匹配点经过精细匹配单应矩阵，得到映射后的在可见光上的点对（输出2），
-       然后再和手动标注的可见光图像点（输出3）对计算RMSE值。后面的RMSE和MSE是由输出2和输出3计算的
+data/
+
+├── 606_pro/            # Original images
+
+│   ├── 0.png
+
+│   ├── 1.png
+
+│   └── ...
+
+├── 606_pro_CLAHE_1/    # CLAHE enhanced images
+
+│   ├── 0.png
+
+│   ├── 1.png
+
+│   └── ...
+
+├── train_3_pro.xlsx    # Training labels file
+
+└── texture_features.csv # Texture features file (auto-generated)
 
 
-y_showResult 文件介绍：
-       CMM_NET，GLAWpoints等文件，里面是手动标注的点对
-       huitu_image.m，meanMAE.m，xiangxiantu.m等文件是用来跑实验定量和定性结果的
-       y_mat_T和y__mat_W里面分别是是映射到可见光图像上的红外点对，和手动标注的可见光点对，实验结果是基于这些来跑的
 
-cutImage 文件介绍：
-       里面主要是手工裁剪和标注真实值并生成真实值相应文件的代码
+## Key Features
 
-       各个 文件夹 介绍：
-       input 粗略裁剪的输入图
-       output 输出图
+- Multimodal feature fusion (image features + texture features)
+- EfficientNet-B0 based deep learning model
+- CLAHE image enhancement
+- Automatic texture feature extraction (IDM, entropy, contrast)
+- Weighted loss function support
+- Adaptive learning rate adjustment
+
+## Usage Guide
+
+Data and the pretrained weights of the model can be accessed via the following methods:
+
+Link of the data: https://anxia.com/s/swh5xl73wqv?password=cca6&#
+data.zip
+
+Access Code: cca6
+
+Link of the pretrained weights: https://anxia.com/s/swh5xlq3wqv?password=d456&#
+HIFF.pth
+
+Access Code: d456
+
+### 1. Configuration
+
+Set key parameters in `config.py`:
+
+```python
+BATCH_SIZE = 18
+NUM_EPOCHS = 20
+LEARNING_RATE = 0.001
+STEP_SIZE = 8
+GAMMA = 0.5
+CLASS_WEIGHTS = [2, 4, 6]
+TRAIN_TEST_SPLIT = [0.7, 0.3]
+
+```
+
+### 2. Data Processing
+The system automatically processes:
+
+Original and CLAHE enhanced images
+Haralick texture feature extraction
+Feature CSV file generation
 
 
-       各个 文件介绍：
-       test1.m和text4.m 精细手动裁剪图片并保存，网格化窗口显示结果
-       test2.py 把手动标注的.mat文件生成json文件
-       RMSEandMAE.py 计算RMSE和MAE
-       Gray.m 批量灰度化，对比度增强和尺寸统一，可选全部或者其中的一项
-       Gray_single 单张灰度化，其他同上
+### 3. Model Training
+Run the training script:
+```python
+python train.py
+```
 
-其他两个文件分别是农科院和增城拍的原始数据
+Training outputs:
+
+Loss value per epoch
+Accuracy
+Recall
+F1 score
+
+Model saving:
+
+Best model saved as best_train_model.pth
+Final model saved as final_model.pth
+
+### 4. Moedel Testing
+Run the testing script:
+```python
+python test.py
+```
+
+### 5. Model Architecture
+HIFF  model includes:
+
+EfficientNet-B0 backbone
+Dual-path feature fusion layer
+Multi-layer fully connected classifier
+HIFF Structure:
+```markdown
+EfficientNet-B0 --> FC(1000->64) --→  
+
+                                      Concat --> FC(128->3)  
+                                      
+Texture Features --> FC(3->64)   --→
+
+```
+
+Citation
+If you use this code in your research, please cite:
+@article{
+  title={Hybrid integrated feature fusion of handcrafted and deep features for rice blast resistance identification using UAV imagery},
+  author={Peng Zhang, Zibin Zhou, Huasheng Huang, Yuanzhu Yang, Xiaochun Hu, Jiajun Zhuang, and Yu Tang},
+}
+License
+MIT License
+
+Contact
+For any questions, please reach out through:
+
+Submit an Issue
+Email: huanghsheng@gpnu.edu.cn
+
+
