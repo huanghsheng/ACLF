@@ -74,6 +74,7 @@ baiyun_gray_size_dbd/       #  Gray, uniform size， Contrast enhancement
 
 ## Key Features
 -Multimodal image registration (visible image+thermal infrared image) 
+
 -Algorithm based on adaptive filtering
 
 ## Usage Guide
@@ -99,7 +100,9 @@ d = 0.33
 The system automatically processes:
 
 -Panorama stitching  
+
 -High precision cell clipping 
+
 -Contrast enhancement, uniform size, etc
 
 
