@@ -1,6 +1,6 @@
-# Hybrid integrated feature fusion of handcrafted and deep features for rice blast resistance identification using UAV imagery
-Pytorch implementation of Hybrid integrated feature fusion of handcrafted and deep features for rice blast resistance identification using UAV imagery.
-Rice Blast Disease Detection System for Rice Seedlings Based on Hybrid Image Feature Fusion, combining EfficientNet and texture features for multimodal classification.
+# Adaptive connection line filtering for image registration of UAV-based visual and thermal infrared imagery in rice phenotyping
+Pytorch realizes the feature extraction of visible and thermal infrared images, which is used to realize the registration of visible and thermal infrared images of UAV images. 
+Based on the dual mode registration system of visible light and thermal infrared, an adaptive filtering algorithm is used for registration.
 
 
 ## Project Structure
