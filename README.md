@@ -1,6 +1,5 @@
 # Adaptive connection line filtering for image registration of UAV-based visual and thermal infrared imagery in rice phenotyping
-Pytorch realizes the feature extraction of visible and thermal infrared images, which is used to realize the registration of visible and thermal infrared images of UAV images. 
-Based on the dual mode registration system of visible light and thermal infrared, an adaptive filtering algorithm is used for registration. Our data and code can be found at the following link: https://115.com/?cid=3129112911641197267&offset=0&tab=&mode=wangpan
+Pytorch realizes the feature extraction of visible and thermal infrared images, which is used to realize the registration of visible and thermal infrared images of UAV images. Based on the dual mode registration system of visible light and thermal infrared, an adaptive filtering algorithm is used for registration. Our data and code can be found at the following link: https://115.com/?cid=3129112911641197267&offset=0&tab=&mode=wangpan
 
 
 ## Project Structure
